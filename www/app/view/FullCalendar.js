@@ -564,6 +564,12 @@ function getAppointment(me, currentobj, refresh, startTime, endTime, weekarrayem
             insertData(decoded.response.data, currentobj, refresh, me, nextprev, datepickerGo, week);
         },
         failure: function (response) {
+            var error_msg_id;
+            if (response.status == 403) {
+                error_msg_id = 'insufficient permissions';
+                window.localStorage.setItem(user_code, '~me');
+                // TODO: reflect this change in the view (calendar title)
+            }
             getAppointments(me, currentobj, refresh, startTime, endTime, weekarrayemptyflag, nextprev,datepickerGo, week);
             me.unmask();
 
