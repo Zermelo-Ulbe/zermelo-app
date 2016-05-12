@@ -53,6 +53,7 @@
         "other" : "Overig"
     },
     "network_error":"Probleem met het verbinden met Zermelo Portal",
+    "insufficient_permissions":"Je hebt onvoldoende rechten om dit rooster te bekijken",
     "months" : {
         "1"  : "Januari",
         "2"  : "Februari",

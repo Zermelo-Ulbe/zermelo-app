@@ -566,9 +566,12 @@ function getAppointment(me, currentobj, refresh, startTime, endTime, weekarrayem
         failure: function (response) {
             var error_msg_id;
             if (response.status == 403) {
-                error_msg_id = 'insufficient permissions';
-                window.localStorage.setItem(user_code, '~me');
+                error_msg_id = 'insufficient_permissions';
+                // window.localStorage.setItem('user_code', '~me');
                 // TODO: reflect this change in the view (calendar title)
+            }
+            else {
+                error_msg_id = 'network_error';
             }
             getAppointments(me, currentobj, refresh, startTime, endTime, weekarrayemptyflag, nextprev,datepickerGo, week);
             me.unmask();
@@ -579,7 +582,7 @@ function getAppointment(me, currentobj, refresh, startTime, endTime, weekarrayem
                     xtype: 'label',
                     cls: 'zermelo-error-messagebox',
                     locales: {
-                        html: 'network_error'
+                        html: error_msg_id
                     }
                 }],
                 buttons: [{

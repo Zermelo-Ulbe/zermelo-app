@@ -133,7 +133,7 @@ function getAnnoucementData(thisObj) {
 
     // send request to server using ajax
     Ext.Ajax.request({
-        url: 'https://' + institution + '.zportal.nl/api/v3/announcements?user=~me&access_token=' + accessToken, // url : this.getUrl(),
+        url: 'https://' + institution + '.zportal.nl/api/v3/announcements?current=true&user=~me&access_token=' + accessToken, // url : this.getUrl(),
         method: "GET",
         useDefaultXhrHeader: false,
 
