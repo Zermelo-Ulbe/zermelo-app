@@ -222,7 +222,7 @@ function authentication() {
             });
             //send request to authorization API
             Ext.Ajax.request({
-                url: 'https://' + value_institution + '.zportal.nl/api/v2/oauth/token?grant_type=authorization_code&code=' + value_code,
+                url: 'https://' + value_institution + '.zportal.nl/api/v3/oauth/token?grant_type=authorization_code&code=' + value_code,
                 method: "POST",
                 useDefaultXhrHeader: false,
                 //success

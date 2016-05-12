@@ -518,7 +518,7 @@ function getAppointment(me, currentobj, refresh, startTime, endTime, weekarrayem
         return;
     // send request to server using ajax
     Ext.Ajax.request({
-        url: 'https://' + institution + '.zportal.nl/api/v2/appointments?user='+window.localStorage.getItem('user_code')+'&access_token=' + accessToken + '&start=' + startTime + '&end=' + endTime, // url : this.getUrl(),
+        url: 'https://' + institution + '.zportal.nl/api/v3/appointments?user='+window.localStorage.getItem('user_code')+'&access_token=' + accessToken + '&start=' + startTime + '&end=' + endTime, // url : this.getUrl(),
         method: "GET",
         useDefaultXhrHeader: false,
         success: function (response) {

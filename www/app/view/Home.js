@@ -275,7 +275,7 @@ function getAnnoucementsData(thisObj) {
 		return;
     // send request to server using ajax with http GET
     Ext.Ajax.request({
-        url: 'https://' + institution + '.zportal.nl/api/v2/announcements?user='+window.localStorage.getItem('user_code')+'&access_token=' + accessToken, // url : this.getUrl(),
+        url: 'https://' + institution + '.zportal.nl/api/v3/announcements?user='+window.localStorage.getItem('user_code')+'&access_token=' + accessToken, // url : this.getUrl(),
         method: "GET",
         useDefaultXhrHeader: false,
 
