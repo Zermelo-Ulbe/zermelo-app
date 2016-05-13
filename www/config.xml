@@ -7,8 +7,8 @@
 		<name>Zermelo</name>
 		<description>Toont het schoolrooster en mededelingen van de school.</description>
 		<author href="http://www.zermelo.nl" email="info@zermelo.nl">Zermelo Software B.V.</author>
-		<!-- preference name='phonegap-version' value='cli-5.1.1' / -->
-		<preference name="phonegap-version" value="3.7.0" />
+		<!-- <preference name='phonegap-version' value='cli-5.1.1' /> -->
+		<!-- <preference name="phonegap-version" value="3.7.0" /> -->
 
 		<preference name="orientation" value="portrait" />
 		<preference name="autorotate" value="false" readonly="true"/> <!-- Lock screen rotation on Android -->
@@ -30,7 +30,6 @@
 		<preference name="KeyboardDisplayRequiresUserAction" value="false" />
 		<preference name="HideKeyboardFormAccessoryBar" value="false" />
 		<preference name="SuppressesIncrementalRendering" value="false" />
-		<preference name="android-minSdkVersion" value="10" />
 		<preference name="android-installLocation" value="internalOnly" />
 		<preference name="SplashScreenDelay" value="5000" />
 		<preference name="ErrorUrl" value=""/>
@@ -41,7 +40,10 @@
 		<preference name="LoadUrlTimeoutValue" value="20000" />
 		<preference name="disable-cursor" value="false" />
 		<gap:platform name="ios" />
-		<gap:platform name="android" />
+		<gap:platform name="android">
+			<preference name="android-minSdkVersion" value="10" />
+			<preference name="android-targetSdkVersion" value="19" />
+		</gap:platform>
 		<gap:platform name="winphone" />
 		<feature name="http://api.phonegap.com/1.0/network"/>
 		<feature name="http://api.phonegap.com/1.0/file"/>
