@@ -36,7 +36,7 @@ Ext.define('Zermelo.view.SlideView', {
         'Ext.data.Model',
         'Ext.data.ModelManager',
         'Ext.data.Store',
-        'Ext.dataview.List'
+        'Ext.dataview.List',
     ],
     xtype: 'slidenavigationview',
 
@@ -221,6 +221,7 @@ Ext.define('Zermelo.view.SlideView', {
         var me = this;
 
         me._indexCount = 0;
+        me.currentView = 'schedule';
 
         // Create the store.
         me.store = Ext.create('Ext.data.Store', {
@@ -505,41 +506,13 @@ Ext.define('Zermelo.view.SlideView', {
                         },
                         ui: 'normal',
                         handler: function() {
-
-                            if (window.localStorage.getItem('user_code') != '~me') {
-                                deleteappointmentdatas();
-                                //  localStore = new Zermelo.store.AnnouncementStore();
-                                //localStore.removeAll();
-                                var store = Ext.getStore('AnnouncementStore');
-                                store.getProxy().clear();
-                                store.data.clear();
-                                store.sync();
-                            }
-                            window.localStorage.setItem('user_code', "~me");
-                            if (messageShow) {
-
-                                getAnnoucementsData(Ext.getCmp('messageList'))
-                                userChange = true;
-                                if (loc == 'nl') {
-                                    Ext.getCmp("message_title").setTitle("Mededelingen");
-                                } else {
-                                    Ext.getCmp("message_title").setTitle("Announcements");
-                                }
-                            } else {
-                                getAnnoucementData(Ext.getCmp('schedule'));
-                                refresh();
-                                userChange = false;
-                            }
-                            if (loc == 'nl') {
-                                Ext.getCmp("toolbar_main").setTitle("Rooster");
-                                Ext.getCmp("toolbar_day_back").setTitle("Rooster");
-                            } else {
-                                Ext.getCmp("toolbar_main").setTitle("Schedule");
-                                Ext.getCmp("toolbar_day_back").setTitle("Schedule");
-                            }
-                            // 
+                            Zermelo.UserManager.setUserToSelf();
+                            if (messageShow)
+                                getAnnoucementsData(Ext.getCmp('messageList'));
+                            else
+                                getAnnoucementsData(Ext.getCmp('schedule'));
+                            refresh();
                             thisobj.closeContainer();
-                            //Ext.getCmp('user_code_msg').hide();
                             this.getParent().getParent().hide();
                         }
                     }],
@@ -565,7 +538,6 @@ Ext.define('Zermelo.view.SlideView', {
                     },
                     ui: 'normal',
                     handler: function() {
-
                         var user_code = Ext.getCmp('user_code').getValue();
                         if (user_code.length == 0) {
                             Ext.Msg.show({
@@ -593,7 +565,7 @@ Ext.define('Zermelo.view.SlideView', {
                                 Ext.getCmp("toolbar_main").setTitle("Schedule of " + user_code);
                                 Ext.getCmp("toolbar_day_back").setTitle("Schedule of " + user_code);
                             }
-                            if (window.localStorage.getItem('user_code') != user_code) {
+                            if (Zermelo.UserManager.getCode() != user_code) {
                                 deleteappointmentdatas();
                                 // localStore = new Zermelo.store.AnnouncementStore();
                                 //localStore.removeAll();
@@ -602,11 +574,11 @@ Ext.define('Zermelo.view.SlideView', {
                                 store.data.clear();
                                 store.sync();
                             }
-                            window.localStorage.setItem('user_code', user_code);
+                            Zermelo.UserManager.setCode(user_code);
                             if (messageShow) {
                                 getAnnoucementsData(Ext.getCmp('messageList'))
                                 userChange = true;
-                                if (window.localStorage.getItem('user_code') == '~me') {
+                                if (Zermelo.UserManager.getCode() == '~me') {
                                     if (loc == 'nl') {
                                         Ext.getCmp("message_title").setTitle("Mededelingen");
                                     } else {

@@ -111,7 +111,8 @@ Ext
 					'Ux.locale.override.st.picker.Picker',
 					'Ux.locale.override.st.picker.Date',
 					'Ux.locale.override.st.Msgbox',
-					'Ux.locale.override.st.LoadMask' ],
+					'Ux.locale.override.st.LoadMask',
+					'Zermelo.UserManager' ],
 
 			// views load
 			views : [ 'SlideView', 'Login', 'Main', 'Home', 'MessageList',
@@ -121,7 +122,7 @@ Ext
 			],
 
 			// controller load
-			controllers : ['UserController', 'MainController'],
+			controllers : ['MainController'],
 
 			// store load
 			stores : [ 'AnnouncementStore', 'ReadmessageStore' ],
