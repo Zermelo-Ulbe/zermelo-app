@@ -121,7 +121,7 @@ Ext
 			],
 
 			// controller load
-			controllers : [ 'MainController' ],
+			controllers : ['UserController', 'MainController'],
 
 			// store load
 			stores : [ 'AnnouncementStore', 'ReadmessageStore' ],
