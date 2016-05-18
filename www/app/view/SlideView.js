@@ -232,14 +232,6 @@ Ext.define('Zermelo.view.SlideView', {
                 sortProperty: 'groupOrder'
             }
         });
-        
-        // make sure we have user_code set to something FIXME: is this the right place?
-        var user_code = window.localStorage.getItem('user_code');
-        if (user_code === undefined ||
-            user_code == null ||
-            user_code == '' ) {
-			window.localStorage.setItem('user_code', '~me');
-		}
 
         // Add the items into the list.
         me.addItems(me.config.items || []);
@@ -506,7 +498,7 @@ Ext.define('Zermelo.view.SlideView', {
                         },
                         ui: 'normal',
                         handler: function() {
-                            Zermelo.UserManager.setUserToSelf();
+                            Zermelo.UserManager.setUser();
                             if (messageShow)
                                 getAnnoucementsData(Ext.getCmp('messageList'));
                             else
@@ -558,50 +550,45 @@ Ext.define('Zermelo.view.SlideView', {
                                 }],
                             });
                         } else {
-                            if (loc == 'nl') {
-                                Ext.getCmp("toolbar_main").setTitle("Rooster van " + user_code);
-                                Ext.getCmp("toolbar_day_back").setTitle("Rooster van " + user_code);
-                            } else {
-                                Ext.getCmp("toolbar_main").setTitle("Schedule of " + user_code);
-                                Ext.getCmp("toolbar_day_back").setTitle("Schedule of " + user_code);
-                            }
-                            if (Zermelo.UserManager.getCode() != user_code) {
-                                deleteappointmentdatas();
-                                // localStore = new Zermelo.store.AnnouncementStore();
-                                //localStore.removeAll();
-                                var store = Ext.getStore('AnnouncementStore');
-                                store.getProxy().clear();
-                                store.data.clear();
-                                store.sync();
-                            }
-                            Zermelo.UserManager.setCode(user_code);
-                            if (messageShow) {
-                                getAnnoucementsData(Ext.getCmp('messageList'))
-                                userChange = true;
-                                if (Zermelo.UserManager.getCode() == '~me') {
-                                    if (loc == 'nl') {
-                                        Ext.getCmp("message_title").setTitle("Mededelingen");
-                                    } else {
-                                        Ext.getCmp("message_title").setTitle("Announcements");
-
-                                    }
-                                } else {
-                                    if (loc == 'nl') {
-                                        Ext.getCmp("message_title").setTitle("Mededelingen voor " + window.localStorage.getItem('user_code'));
-                                    } else {
-                                        Ext.getCmp("message_title").setTitle("Announcements for " + window.localStorage.getItem('user_code'));
-                                    }
-                                }
-                            } else {
-                                getAnnoucementData(Ext.getCmp('schedule'));
-                                refresh();
-                                userChange = false;
-                            }
-
-                            // refresh();
+                            Zermelo.UserManager.setUser(user_code);
+                            if (messageShow)
+                                getAnnoucementsData(Ext.getCmp('messageList'));
+                            else
+                                getAnnoucementsData(Ext.getCmp('schedule'));
+                            refresh();
                             thisobj.closeContainer();
                             this.hide();
                         }
+                            // console.log('setCode', user_code);
+                            // Zermelo.UserManager.setCode(user_code);
+                            // // Zermelo.UserManager.setCode(user_code);
+                            // // if (messageShow) {
+                            //     getAnnoucementsData(Ext.getCmp('messageList'))
+                            // //     userChange = true;
+                            // //     if (Zermelo.UserManager.getCode() == '~me') {
+                            // //         if (loc == 'nl') {
+                            // //             Ext.getCmp("message_title").setTitle("Mededelingen");
+                            // //         } else {
+                            // //             Ext.getCmp("message_title").setTitle("Announcements");
+
+                            // //         }
+                            // //     } else {
+                            // //         if (loc == 'nl') {
+                            // //             Ext.getCmp("message_title").setTitle("Mededelingen voor " + window.localStorage.getItem('user_code'));
+                            // //         } else {
+                            // //             Ext.getCmp("message_title").setTitle("Announcements for " + window.localStorage.getItem('user_code'));
+                            // //         }
+                            // //     }
+                            // // } else {
+                            //     getAnnoucementData(Ext.getCmp('schedule'));
+                            // //     refresh();
+                            // //     userChange = false;
+                            // // }
+
+                            // refresh();
+                            // thisobj.closeContainer();
+                            // // this.hide();
+                        // }
                     }
                 }, {
                     xtype: 'spacer'
@@ -683,8 +670,9 @@ Ext.define('Zermelo.view.SlideView', {
                     userChange = false;
                 }
 
-            } else
+            } else {
                 messageShow = true;
+            }
         }
     },
 

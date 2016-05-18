@@ -10,3 +10,4 @@
 /plugins/cordova-plugin-whitelist/
 /www/plugins/cordova-plugin-whitelist/
 node_modules
+*.patch

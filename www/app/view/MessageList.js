@@ -58,11 +58,7 @@ Ext.define("Zermelo.view.MessageList", {
                         }],
                     });
 				dataFilter(this, localStore);
-				if(loc=='nl') {
-					Ext.getCmp("message_title").setTitle("Mededelingen");
-				} else {
-					Ext.getCmp("message_title").setTitle("Announcements");
-				}
+				Zermelo.UserManager.setTitles();
 
             }, //end show
              hide:function(){
@@ -131,9 +127,11 @@ function getAnnoucementData(thisObj) {
     if (accessToken == null || accessToken == '')
 		return;
 
+    var startTimestamp = Math.round(Date.now() / 1000);
+    var endTimestamp = startTimestamp + 3600 * 24;
     // send request to server using ajax
     Ext.Ajax.request({
-        url: 'https://' + institution + '.zportal.nl/api/v3/announcements?current=true&user=~me&access_token=' + accessToken, // url : this.getUrl(),
+        url: 'https://' + institution + '.zportal.nl/api/v3/announcements?current=true&user=~me&access_token=' + accessToken + '&start=' + startTimestamp + '&end=' + endTimestamp, // url : this.getUrl(),
         method: "GET",
         useDefaultXhrHeader: false,
 
@@ -167,9 +165,32 @@ function getAnnoucementData(thisObj) {
             //thisObj.unmask();
         },
         failure: function (response) {
-           localStore = new Zermelo.store.AnnouncementStore();
-           dataFilter(thisObj, localStore);
-           thisObj.unmask();
+            var error_msg_id = 'network_error';
+            if (response.status == 403) {
+                console.log('getAnnoucementData');
+                error_msg_id = 'insufficient_permissions';
+            }
+
+            localStore = new Zermelo.store.AnnouncementStore();
+            dataFilter(thisObj, localStore);
+            thisObj.unmask();
+
+            Ext.Msg.show({
+                items: [{
+                    xtype: 'label',
+                    cls: 'zermelo-error-messagebox',
+                    locales: {
+                        html: error_msg_id
+                    }
+                }],
+                buttons: [{
+                    itemId: 'ok',
+                    locales: {
+                        text: 'ok',
+                    },
+                    ui: 'normal'
+                }],
+            });
         }
     });
 }

@@ -37,54 +37,8 @@ Ext.define("Zermelo.view.Schedule", {
                 appointmentdetailView = Ext.create('Zermelo.view.AppointmentDetails');
                 changeRefreshIcon();
                 messageShow = false;
-                 // console.log(messageShow);
-                if (window.localStorage.getItem('user_code') == '~me') {
-                    if (loc == 'nl') {
-                        Ext.getCmp("toolbar_main").setTitle("Rooster");
-                        Ext.getCmp("toolbar_day_back").setTitle("Rooster");
-
-                    } else {
-                        Ext.getCmp("toolbar_main").setTitle("Schedule");
-                        Ext.getCmp("toolbar_day_back").setTitle("Schedule");
-
-                    }
-                } else {
-                    if (loc == 'nl') {
-                        Ext.getCmp("toolbar_main").setTitle("Rooster van " + window.localStorage.getItem('user_code'));
-                        Ext.getCmp("toolbar_day_back").setTitle("Rooster van " + window.localStorage.getItem('user_code'));
-
-                    } else {
-                        Ext.getCmp("toolbar_main").setTitle("Schedule of " + window.localStorage.getItem('user_code'));
-                        Ext.getCmp("toolbar_day_back").setTitle("Schedule of " + window.localStorage.getItem('user_code'));
-
-                    }
-                }
+                Zermelo.UserManager.setTitles();
             },
-            painted: function() {
-            	//  console.log("show");
-            //Display user code on header
-                if (window.localStorage.getItem('user_code') == '~me') {
-                    if (loc == 'nl') {
-                        Ext.getCmp("toolbar_main").setTitle("Rooster");
-                        Ext.getCmp("toolbar_day_back").setTitle("Rooster");
-
-                    } else {
-                        Ext.getCmp("toolbar_main").setTitle("Schedule");
-                        Ext.getCmp("toolbar_day_back").setTitle("Schedule");
-
-                    }
-                } else {
-                    if (loc == 'nl') {
-                        Ext.getCmp("toolbar_main").setTitle("Rooster van " + window.localStorage.getItem('user_code'));
-                        Ext.getCmp("toolbar_day_back").setTitle("Rooster van " + window.localStorage.getItem('user_code'));
-
-                    } else {
-                        Ext.getCmp("toolbar_main").setTitle("Schedule of " + window.localStorage.getItem('user_code'));
-                        Ext.getCmp("toolbar_day_back").setTitle("Schedule of " + window.localStorage.getItem('user_code'));
-
-                    }
-                }
-            }
         },
         items: [{
             xtype: 'fullcalendarpanel',

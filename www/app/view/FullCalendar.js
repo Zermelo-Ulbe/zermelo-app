@@ -518,7 +518,7 @@ function getAppointment(me, currentobj, refresh, startTime, endTime, weekarrayem
         return;
     // send request to server using ajax
     Ext.Ajax.request({
-        url: 'https://' + institution + '.zportal.nl/api/v3/appointments?user='+window.localStorage.getItem('user_code')+'&access_token=' + accessToken + '&start=' + startTime + '&end=' + endTime, // url : this.getUrl(),
+        url: 'https://' + institution + '.zportal.nl/api/v3/appointments?user='+Zermelo.UserManager.getCode()+'&access_token=' + accessToken + '&start=' + startTime + '&end=' + endTime, // url : this.getUrl(),
         method: "GET",
         useDefaultXhrHeader: false,
         success: function (response) {
@@ -564,17 +564,14 @@ function getAppointment(me, currentobj, refresh, startTime, endTime, weekarrayem
             insertData(decoded.response.data, currentobj, refresh, me, nextprev, datepickerGo, week);
         },
         failure: function (response) {
-            var error_msg_id;
+            var error_msg_id = 'network_error';
             if (response.status == 403) {
+                console.log('getAppointment');
                 error_msg_id = 'insufficient_permissions';
+                // Zermelo.UserManager.setUserToSelf();
                 // window.localStorage.setItem('user_code', '~me');
                 // TODO: reflect this change in the view (calendar title)
             }
-            else {
-                error_msg_id = 'network_error';
-            }
-            getAppointments(me, currentobj, refresh, startTime, endTime, weekarrayemptyflag, nextprev,datepickerGo, week);
-            me.unmask();
 
             //display msg box with error message
             Ext.Msg.show({
@@ -593,6 +590,9 @@ function getAppointment(me, currentobj, refresh, startTime, endTime, weekarrayem
                     ui: 'normal'
                 }],
             });
+
+            getAppointments(me, currentobj, refresh, startTime, endTime, weekarrayemptyflag, nextprev,datepickerGo, week);
+            me.unmask();
         }
     }); // end ajax request
 }
