@@ -221,7 +221,6 @@ Ext.define('Zermelo.view.SlideView', {
         var me = this;
 
         me._indexCount = 0;
-        me.currentView = 'schedule';
 
         // Create the store.
         me.store = Ext.create('Ext.data.Store', {
@@ -511,8 +510,8 @@ Ext.define('Zermelo.view.SlideView', {
                 }, {
                     xtype: 'textfield',
                     label: '',
-                    name: 'user_code',
-                    id: 'user_code',
+                    name: 'new_user_code',
+                    id: 'new_user_code',
                     style: {
                         'margin': '10px 10px 10px 10px',
                     },
@@ -530,7 +529,7 @@ Ext.define('Zermelo.view.SlideView', {
                     },
                     ui: 'normal',
                     handler: function() {
-                        var user_code = Ext.getCmp('user_code').getValue();
+                        var user_code = Ext.getCmp('new_user_code').getValue();
                         if (user_code.length == 0) {
                             Ext.Msg.show({
                                 items: [{
@@ -555,40 +554,9 @@ Ext.define('Zermelo.view.SlideView', {
                                 getAnnoucementsData(Ext.getCmp('messageList'));
                             else
                                 getAnnoucementsData(Ext.getCmp('schedule'));
-                            refresh();
                             thisobj.closeContainer();
                             this.hide();
                         }
-                            // console.log('setCode', user_code);
-                            // Zermelo.UserManager.setCode(user_code);
-                            // // Zermelo.UserManager.setCode(user_code);
-                            // // if (messageShow) {
-                            //     getAnnoucementsData(Ext.getCmp('messageList'))
-                            // //     userChange = true;
-                            // //     if (Zermelo.UserManager.getCode() == '~me') {
-                            // //         if (loc == 'nl') {
-                            // //             Ext.getCmp("message_title").setTitle("Mededelingen");
-                            // //         } else {
-                            // //             Ext.getCmp("message_title").setTitle("Announcements");
-
-                            // //         }
-                            // //     } else {
-                            // //         if (loc == 'nl') {
-                            // //             Ext.getCmp("message_title").setTitle("Mededelingen voor " + window.localStorage.getItem('user_code'));
-                            // //         } else {
-                            // //             Ext.getCmp("message_title").setTitle("Announcements for " + window.localStorage.getItem('user_code'));
-                            // //         }
-                            // //     }
-                            // // } else {
-                            //     getAnnoucementData(Ext.getCmp('schedule'));
-                            // //     refresh();
-                            // //     userChange = false;
-                            // // }
-
-                            // refresh();
-                            // thisobj.closeContainer();
-                            // // this.hide();
-                        // }
                     }
                 }, {
                     xtype: 'spacer'
@@ -665,11 +633,7 @@ Ext.define('Zermelo.view.SlideView', {
             }
             if (index == 0) {
                 messageShow = false;
-                if (userChange) {
-                    refresh();
-                    userChange = false;
-                }
-
+                // refresh();
             } else {
                 messageShow = true;
             }

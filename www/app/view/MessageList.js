@@ -165,32 +165,17 @@ function getAnnoucementData(thisObj) {
             //thisObj.unmask();
         },
         failure: function (response) {
-            var error_msg_id = 'network_error';
             if (response.status == 403) {
-                console.log('getAnnoucementData');
-                error_msg_id = 'insufficient_permissions';
+                console.log('getAppointment');
+                Zermelo.ErrorManager.addError('insufficient_permissions');
+                Zermelo.UserManager.setUser();
             }
-
-            localStore = new Zermelo.store.AnnouncementStore();
-            dataFilter(thisObj, localStore);
-            thisObj.unmask();
-
-            Ext.Msg.show({
-                items: [{
-                    xtype: 'label',
-                    cls: 'zermelo-error-messagebox',
-                    locales: {
-                        html: error_msg_id
-                    }
-                }],
-                buttons: [{
-                    itemId: 'ok',
-                    locales: {
-                        text: 'ok',
-                    },
-                    ui: 'normal'
-                }],
-            });
+            else {
+                Zermelo.ErrorManager.addError('network_error');
+            }
+            Ext.Viewport.setMasked(false);
+            thisObj.show();
+            ErrorManager.showFirstError();
         }
     });
 }

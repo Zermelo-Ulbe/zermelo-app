@@ -5,7 +5,7 @@ Ext.define('Zermelo.UserManager', {
     userChanged: false,
 
 
-    getCode: function() {
+    getUser: function() {
     	console.log("get", this.code);
         return this.code;
     },

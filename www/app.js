@@ -112,7 +112,9 @@ Ext
 					'Ux.locale.override.st.picker.Date',
 					'Ux.locale.override.st.Msgbox',
 					'Ux.locale.override.st.LoadMask',
-					'Zermelo.UserManager' ],
+					'Zermelo.UserManager',
+					'Zermelo.ErrorManager',
+					],
 
 			// views load
 			views : [ 'SlideView', 'Login', 'Main', 'Home', 'MessageList',

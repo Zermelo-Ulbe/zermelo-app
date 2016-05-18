@@ -278,7 +278,7 @@ function getAnnoucementsData(thisObj) {
     var endTimestamp = startTimestamp + 3600 * 24;
     // send request to server using ajax with http GET
     Ext.Ajax.request({
-        url: 'https://' + institution + '.zportal.nl/api/v3/announcements?current=true&user='+Zermelo.UserManager.getCode()+'&access_token=' + accessToken + '&start=' + startTimestamp + '&end=' + endTimestamp, // url : this.getUrl(),
+        url: 'https://' + institution + '.zportal.nl/api/v3/announcements?current=true&user='+Zermelo.UserManager.getUser()+'&access_token=' + accessToken + '&start=' + startTimestamp + '&end=' + endTimestamp, // url : this.getUrl(),
         method: "GET",
         useDefaultXhrHeader: false,
 
@@ -314,31 +314,17 @@ function getAnnoucementsData(thisObj) {
             thisObj.show();
         },
         failure: function (response) {
-            var error_msg_id = 'network_error';
-
             if (response.status == 403) {
-                console.log('getAnnouncementsData');
-                error_msg_id = 'insufficient_permissions';
+                console.log('getAppointment');
+                Zermelo.ErrorManager.addError('insufficient_permissions');
+                Zermelo.UserManager.setUser();
             }
-
-            thisObj.show();
+            else {
+                Zermelo.ErrorManager.addError('network_error');
+            }
             Ext.Viewport.setMasked(false);
-            Ext.Msg.show({
-                items: [{
-                    xtype: 'label',
-                    cls: 'zermelo-error-messagebox',
-                    locales: {
-                        html: error_msg_id
-                    }
-                }],
-                buttons: [{
-                    itemId: 'ok',
-                    locales: {
-                        text: 'ok',
-                    },
-                    ui: 'normal'
-                }],
-            });
+            thisObj.show();
+            ErrorManager.showFirstError();
         }
     });
 }
