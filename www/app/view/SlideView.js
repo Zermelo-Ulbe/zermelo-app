@@ -436,42 +436,46 @@ Ext.define('Zermelo.view.SlideView', {
         //check if tap logout goto login screen and (accessToken and  institution data remove from local storage)
         var thisobj = this;
         if (index == 3) {
-            // display popup while pressed on logout button
-            Ext.Msg.show({
-                items: [{
-                    xtype: 'label',
-                    cls: 'zermelo-error-messagebox',
-                    locales: {
-                        html: 'menu.logout_message'
-                    }
-                }],
-                buttons: [{
-                    itemId: 'ok',
-                    locales: {
-                        text: 'ok',
-                    },
-                    ui: 'normal',
-                    handler: function() {
-                        Zermelo.UserManager.logout();
-                        window.localStorage.setItem('startApp', '');
-                        window.localStorage.setItem('refreshTime', '');
-                        window.location.reload();
-                    }
-                }, {
-                    xtype: 'spacer'
-                }, {
-                    itemId: 'cancel',
-                    locales: {
-                        text: 'cancel',
-                    },
-                    ui: 'normal',
-                    handler: function() {
-                        thisobj.closeContainer();
-                        this.hide();
-                    }
+            var calendarList = Ext.getCmp("Zermelo.view.CalendarList");
+            if (!calendarList)
+                calendarList = Ext.create("Zermelo.view.CalendarList");
+            calendarList.show();
+            // // display popup while pressed on logout button
+            // Ext.Msg.show({
+            //     items: [{
+            //         xtype: 'label',
+            //         cls: 'zermelo-error-messagebox',
+            //         locales: {
+            //             html: 'menu.logout_message'
+            //         }
+            //     }],
+            //     buttons: [{
+            //         itemId: 'ok',
+            //         locales: {
+            //             text: 'ok',
+            //         },
+            //         ui: 'normal',
+            //         handler: function() {
+            //             Zermelo.UserManager.logout();
+            //             window.localStorage.setItem('startApp', '');
+            //             window.localStorage.setItem('refreshTime', '');
+            //             window.location.reload();
+            //         }
+            //     }, {
+            //         xtype: 'spacer'
+            //     }, {
+            //         itemId: 'cancel',
+            //         locales: {
+            //             text: 'cancel',
+            //         },
+            //         ui: 'normal',
+            //         handler: function() {
+            //             thisobj.closeContainer();
+            //             this.hide();
+            //         }
 
-                }],
-            });
+            //     }],
+            // });
 
         } else if (index == 2) {
             // display popup while pressed on change user
