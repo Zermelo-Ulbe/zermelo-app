@@ -80,6 +80,7 @@ Ext.define('Zermelo.UserManager', {
     	this.setCode(newCode);
     	this.refreshData();
     	this.setTitles();
+        Ext.getCmp('fullCalendarView').renderFullCalendar();
     },
 
     getScheduleTitle: function() {

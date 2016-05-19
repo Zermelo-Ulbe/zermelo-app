@@ -631,7 +631,6 @@ Ext.define('Zermelo.view.SlideView', {
             }
             if (index == 0) {
                 messageShow = false;
-                refresh();
             } else {
                 messageShow = true;
             }
