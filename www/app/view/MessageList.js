@@ -39,24 +39,7 @@ Ext.define("Zermelo.view.MessageList", {
             show: function () {
                 messageShow=true;
                 if (localStore.getCount() == 0)
-                    Ext.Msg.show({
-                        items: [{
-                            xtype: 'label',
-                            cls: 'zermelo-error-messagebox',
-                            locales: {
-                                html: 'announcement.no_announcement_msg'
-                            }
-                        }],
-                        buttons: [{
-                            itemId: 'ok',
-
-                            locales: {
-                                text: 'ok',
-                            },
-
-                            ui: 'normal'
-                        }],
-                    });
+                    Zermelo.ErrorManager.showErrorBox('announcement.no_announcement_msg');
 				dataFilter(this, localStore);
 				Zermelo.UserManager.setTitles();
 
@@ -67,23 +50,7 @@ Ext.define("Zermelo.view.MessageList", {
             // record update with read and unread
             painted_disabled: function () {
                 if (localStore.getCount() == 0)
-                    Ext.Msg.show({
-                        items: [{
-                            xtype: 'label',
-                            cls: 'zermelo-error-messagebox',
-                            locales: {
-                                html: 'announcement.no_announcement_msg'
-                            }
-                        }],
-                        buttons: [{
-                            itemId: 'ok',
-                            locales: {
-                                text: 'ok',
-                            },
-                         
-                            ui: 'normal'
-                        }],
-                    });
+                    Zermelo.ErrorManager.showErrorBox('announcement.no_announcement_msg');
                 dataFilter(this, localStore);
             }, //end painted
         }, // end listeners
@@ -175,7 +142,6 @@ function getAnnoucementData(thisObj) {
             }
             Ext.Viewport.setMasked(false);
             thisObj.show();
-            ErrorManager.showFirstError();
         }
     });
 }

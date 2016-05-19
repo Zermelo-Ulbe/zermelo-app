@@ -179,23 +179,7 @@ function authentication() {
     // check text_institution and numner_code validation
     if (text_institution.getValue().length == 0 && number_code.getValue().length == 0) {
         // both textfields are empty
-        //show error message
-        Ext.Msg.show({
-            items: [{
-                xtype: 'label',
-                cls: 'zermelo-error-messagebox',
-                locales: {
-                    html: 'login.institution_code_error_msg'
-                }
-            }],
-            buttons: [{
-                itemId: 'ok',
-                locales: {
-                    text: 'ok',
-                },
-                ui: 'action'
-            }],
-        });
+        Zermelo.ErrorManager.showErrorBox('login.institution_code_error_msg');
     } else {
         if (text_institution.getValue().length != 0 && text_institution.getValue().length <= 100 && institution_reg.exec(text_institution.getValue())) {
             // text_institution field is valid
@@ -227,7 +211,6 @@ function authentication() {
                 useDefaultXhrHeader: false,
                 //success
                 success: function (response) {
-                    console.log('login succesful');
                     // hide loading screen
                     thisObj.unmask();
                     // decode response
@@ -244,84 +227,17 @@ function authentication() {
                 },
                 //failure
                 failure: function (response) {
-                  //  console.log(response);
-                   // console.log("fail");
-                    thisObj.unmask();
-                    Ext.Msg.show({
-                        items: [{
-                            xtype: 'label',
-                            cls: 'zermelo-error-messagebox',
-                            locales: {
-                                html: 'network_error'
-                            }
-                        }],
-                        buttons: [{
-                            itemId: 'ok',
-                            locales: {
-                                text: 'ok',
-                            },
-                            ui: 'normal'
-                        }],
-                    });
+                    Zermelo.ErrorManager.showErrorBox('network_error');
                 }
             });
         } else {
             //text field and code field both are invalid
             if (!text_flag && !number_flag) {
-                //show message
-                Ext.Msg.show({
-                    items: [{
-                        xtype: 'label',
-                        cls: 'zermelo-error-messagebox',
-                        locales: {
-                            html: 'login.institution_code_error_msg'
-                        }
-                    }],
-                    buttons: [{
-                        itemId: 'ok',
-                        locales: {
-                            text: 'ok',
-                        },
-
-                        ui: 'normal'
-                    }],
-                });
+                Zermelo.ErrorManager.showErrorBox('login.institution_code_error_msg');
             } else if (!text_flag) {
-                Ext.Msg.show({
-                    items: [{
-                        xtype: 'label',
-                        cls: 'zermelo-error-messagebox',
-                        locales: {
-                            html: 'login.institution_error_msg'
-                        }
-                    }],
-                    buttons: [{
-                        itemId: 'ok',
-                        locales: {
-                            text: 'ok',
-                        },
-
-                        ui: 'normal'
-                    }],
-                });
+                Zermelo.ErrorManager.showErrorBox('login.institution_code_error_msg');
             } else if (!number_flag) {
-                Ext.Msg.show({
-                    items: [{
-                        xtype: 'label',
-                        cls: 'zermelo-error-messagebox',
-                        locales: {
-                            html: 'login.code_error_msg'
-                        }
-                    }],
-                    buttons: [{
-                        itemId: 'ok',
-                        locales: {
-                            text: 'ok',
-                        },
-
-                        ui: 'normal'
-                    }],
-                });
+                Zermelo.ErrorManager.showErrorBox('login.code_error_msg');
             } //end else if
         } //end else
     } //end else
