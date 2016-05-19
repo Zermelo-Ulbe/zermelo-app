@@ -510,15 +510,12 @@ function getAppointment(me, currentobj, refresh, startTime, endTime, weekarrayem
         indicator: true
     });
     var thisMe = currentobj;
-    // get institution and accesstoken from localstorage
-    var institution = window.localStorage.getItem('institution');
-    var accessToken = window.localStorage.getItem('accessToken');
     
-    if (accessToken == null || accessToken == "")
+    if (!Zermelo.UserManager.loggedIn())
         return;
     // send request to server using ajax
     Ext.Ajax.request({
-        url: 'https://' + institution + '.zportal.nl/api/v3/appointments?user='+Zermelo.UserManager.getUser()+'&access_token=' + accessToken + '&start=' + startTime + '&end=' + endTime, // url : this.getUrl(),
+        url: 'https://' + Zermelo.UserManager.getInstitution() + '.zportal.nl/api/v3/appointments?user=' + Zermelo.UserManager.getUser() + '&access_token=' + Zermelo.UserManager.getAccessToken() + '&start=' + startTime + '&end=' + endTime, // url : this.getUrl(),
         method: "GET",
         useDefaultXhrHeader: false,
         success: function (response) {

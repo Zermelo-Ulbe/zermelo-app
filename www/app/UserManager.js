@@ -37,6 +37,18 @@ Ext.define('Zermelo.UserManager', {
 		window.localStorage.setItem('accessToken', newAccessToken);
 	},
 
+    saveLogin: function(code, institution, accessToken) {
+        this.setCode(code);
+        this.setInstitution(institution);
+        this.setAccessToken(accessToken);
+    },
+
+    logout: function() {
+        this.setCode('');
+        this.setInstitution('');
+        this.setAccessToken('');
+    },
+
     refreshData: function() {
         deleteappointmentdatas();
         var store = Ext.getStore('AnnouncementStore');

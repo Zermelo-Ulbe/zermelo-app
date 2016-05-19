@@ -86,17 +86,13 @@ Ext.define("Zermelo.view.MessageList", {
 });
 
 //below function fetches the list of annoucement using webservice.
-function getAnnoucementData(thisObj) {   
-    // get institution and accesstoken from localstorage
-    var institution = window.localStorage.getItem('institution');
-    var accessToken = window.localStorage.getItem('accessToken');
-    
-    if (accessToken == null || accessToken == '')
+function getAnnoucementData(thisObj) {       
+    if (!Zermelo.UserManager.loggedIn())
 		return;
     
     // send request to server using ajax
     Ext.Ajax.request({
-        url: 'https://' + institution + '.zportal.nl/api/v3/announcements?current=true&user=~me&access_token=' + accessToken, // url : this.getUrl(),
+        url: 'https://' + Zermelo.UserManager.getInstitution() + '.zportal.nl/api/v3/announcements?current=true&user=~me&access_token=' + Zermelo.UserManager.getAccessToken(), // url : this.getUrl(),
         method: "GET",
         useDefaultXhrHeader: false,
 

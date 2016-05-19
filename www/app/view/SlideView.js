@@ -452,11 +452,9 @@ Ext.define('Zermelo.view.SlideView', {
                     },
                     ui: 'normal',
                     handler: function() {
-                        window.localStorage.setItem('accessToken', '');
-                        window.localStorage.setItem('institution', '');
+                        Zermelo.UserManager.logout();
                         window.localStorage.setItem('startApp', '');
                         window.localStorage.setItem('refreshTime', '');
-                        window.localStorage.setItem('user_code', '~me');
                         window.location.reload();
                     }
                 }, {

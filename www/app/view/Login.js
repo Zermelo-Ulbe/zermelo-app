@@ -215,11 +215,8 @@ function authentication() {
                     thisObj.unmask();
                     // decode response
                     var decoded = Ext.JSON.decode(response.responseText);
-                    // save accessToken and institution in localstorage
-                    window.localStorage.setItem('accessToken', decoded.access_token);
-                    window.localStorage.setItem('institution', value_institution);
-                    window.localStorage.setItem('user_code',"~me");
-                     window.localStorage.setItem('startApp',"True");
+                    Zermelo.UserManager.saveLogin('~me', value_institution, decoded.access_token);
+                    window.localStorage.setItem('startApp',"True");
                     number_code.setValue("");
                     text_institution.setValue("");
                     Ext.getCmp('main').setActiveItem(1);
