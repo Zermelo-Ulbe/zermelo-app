@@ -195,16 +195,6 @@ function updateRefreshFlag(query) {
     })
 }
 
-function logCollision(main, sub, eventArray) {
-    if (eventArray[sub].valid == 'true') {
-        eventArray[main].collision = true;
-        console.log(eventArray[main].multiid, eventArray[sub].id, eventArray[main].multiid.includes("," + eventArray[sub].id));
-        // if (!eventArray[main].multiid.substring("," + eventArray[sub].id)) {
-            eventArray[main].multiid = (eventArray[main].multiid ? eventArray[main].multiid : eventArray[main].id) + "," + eventArray[sub].id;
-        // }
-    }
-}
-
 function detectCollision(i, j) {
     if (i.valid == 'true' 
         && j.valid == 'true' 
