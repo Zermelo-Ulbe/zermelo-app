@@ -2,18 +2,40 @@ Ext.define('Zermelo.UserManager', {
     alternateClassName: 'UserManager',
     singleton: true,
     code: window.localStorage.getItem('user_code') ? window.localStorage.getItem('user_code') : '~me',
+    institution: window.localStorage.getItem('institution'),
+    accessToken: window.localStorage.getItem('accessToken'),
     userChanged: false,
 
-
-    getUser: function() {
-    	console.log("get", this.code);
-        return this.code;
+    loggedIn: function() {
+    	return this.accessToken ? true : false;
     },
 
-    setCode: function(newCode) {
-    	this.code = newCode;
-        window.localStorage.setItem('user_code', newCode);
-    },
+	getUser: function() {
+		return this.code;
+	},
+
+	getInstitution: function() {
+		return this.institution;
+	},
+
+	getAccessToken: function() {
+		return this.accessToken;
+	},
+
+	setCode: function(newCode) {
+		this.code = newCode;
+		window.localStorage.setItem('user_code', newCode);
+	},
+
+	setInstitution: function(newInstitution) {
+		this.institution = newInstitution;
+		window.localStorage.setItem('institution', newInstitution);
+	},
+
+	setAccessToken: function(newAccessToken) {
+		this.accessToken = newAccessToken;
+		window.localStorage.setItem('accessToken', newAccessToken);
+	},
 
     refreshData: function() {
         deleteappointmentdatas();

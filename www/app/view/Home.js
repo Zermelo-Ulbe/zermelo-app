@@ -267,16 +267,11 @@ function getAnnoucementsData(thisObj) {
         indicator: true
         });
     
-     thisObj.hide();
-    var institution = window.localStorage.getItem('institution');
-    var accessToken = window.localStorage.getItem('accessToken');
-
-	if (accessToken == null || accessToken == '')
-		return;
+    thisObj.hide();
 
     // send request to server using ajax with http GET
     Ext.Ajax.request({
-        url: 'https://' + institution + '.zportal.nl/api/v3/announcements?current=true&user='+Zermelo.UserManager.getUser()+'&access_token=' + accessToken, // url : this.getUrl(),
+        url: 'https://' + Zermelo.UserManager.getInstitution() + '.zportal.nl/api/v3/announcements?current=true&user=' + Zermelo.UserManager.getUser() + '&access_token=' + Zermelo.UserManager.getAccessToken(), // url : this.getUrl(),
         method: "GET",
         useDefaultXhrHeader: false,
 
