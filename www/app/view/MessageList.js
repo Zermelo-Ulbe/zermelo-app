@@ -167,11 +167,11 @@ function getAnnoucementData(thisObj) {
         failure: function (response) {
             if (response.status == 403) {
                 console.log('getAppointment');
-                Zermelo.ErrorManager.addError('insufficient_permissions');
+                Zermelo.ErrorManager.showErrorBox('insufficient_permissions');
                 Zermelo.UserManager.setUser();
             }
             else {
-                Zermelo.ErrorManager.addError('network_error');
+                Zermelo.ErrorManager.showErrorBox('network_error');
             }
             Ext.Viewport.setMasked(false);
             thisObj.show();
