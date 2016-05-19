@@ -274,11 +274,9 @@ function getAnnoucementsData(thisObj) {
 	if (accessToken == null || accessToken == '')
 		return;
 
-    var startTimestamp = Math.round(Date.now() / 1000);
-    var endTimestamp = startTimestamp + 3600 * 24;
     // send request to server using ajax with http GET
     Ext.Ajax.request({
-        url: 'https://' + institution + '.zportal.nl/api/v3/announcements?current=true&user='+Zermelo.UserManager.getUser()+'&access_token=' + accessToken + '&start=' + startTimestamp + '&end=' + endTimestamp, // url : this.getUrl(),
+        url: 'https://' + institution + '.zportal.nl/api/v3/announcements?current=true&user='+Zermelo.UserManager.getUser()+'&access_token=' + accessToken, // url : this.getUrl(),
         method: "GET",
         useDefaultXhrHeader: false,
 
