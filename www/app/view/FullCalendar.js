@@ -537,8 +537,8 @@ Ext.define('Zermelo.view.FullCalendar', {
                     });
             }
         }
-        week_day_view = "agendaDay";
-        this.changeCalendarView('agendaDay');
+        week_day_view = "basicDay";
+        this.changeCalendarView('basicDay');
         $('#' + this.getPlaceholderid()).fullCalendar('gotoDate', selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
         this.day.hide();
         Ext.getCmp('toolbar_main').setHidden(true);
@@ -555,7 +555,7 @@ Ext.define('Zermelo.view.FullCalendar', {
                     this.destroyCalendar();
                     this.renderFullCalendar();
                     if (dayview == "dayview")
-                        this.changeCalendarView('agendaDay');
+                        this.changeCalendarView('basicDay');
                 }
             }
         });
